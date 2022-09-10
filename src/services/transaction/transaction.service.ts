@@ -24,6 +24,7 @@ const parsersByPayee: Record<Payee, MessageTextParser> = {
 
 const abbreviatedMemos: Record<string, string> = {
   "Salad Story - Al. KEN": "Salad Story",
+  "Bao Dao - Wąwozowa": "Bao Dao",
 };
 
 const getTransaction = (messageText: string): Transaction => {
