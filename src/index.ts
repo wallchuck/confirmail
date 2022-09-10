@@ -15,7 +15,7 @@ export const handler = async (event: S3Event) => {
 
   await ynabService.saveTransaction({
     date: transaction.date.toISOString(),
-    amount: transaction.amount * 1000,
+    amount: transaction.amount * -1000,
     payee_name: transaction.payee,
     memo: transaction.memo ?? null,
   });
