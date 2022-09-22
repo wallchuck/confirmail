@@ -1,4 +1,4 @@
-const payees = ["Bolt Food"] as const;
+const payees = ["Bolt Food", "Wolt"] as const;
 export type Payee = typeof payees[number];
 export const isPayee = (value: unknown): value is Payee =>
   Boolean(payees.find((payee) => payee === value));

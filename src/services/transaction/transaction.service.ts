@@ -1,4 +1,5 @@
 import { boltFoodParser } from "./parsers/boltFoodParser";
+import { woltParser } from "./parsers/woltParser";
 import {
   isPayee,
   MessageTextParser,
@@ -20,11 +21,13 @@ const getPayee = (messageText: string): Payee => {
 
 const parsersByPayee: Record<Payee, MessageTextParser> = {
   "Bolt Food": boltFoodParser,
+  Wolt: woltParser,
 };
 
 const abbreviatedMemos: Record<string, string> = {
   "Salad Story - Al. KEN": "Salad Story",
   "Bao Dao - Wąwozowa": "Bao Dao",
+  "Bajgle i Bąble Breakfast & Coffee bar": "Bajgle i Bąble",
 };
 
 const getTransaction = (messageText: string): Transaction => {
