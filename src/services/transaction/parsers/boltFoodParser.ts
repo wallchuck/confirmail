@@ -4,8 +4,7 @@ import parseISO from "date-fns/parseISO";
 import type { TransactionDetails } from "../transaction.types";
 
 export const boltFoodParser = (messageText: string): TransactionDetails => {
-  const [, day, month, year] =
-    messageText.match(/\u00AD(\d+)\.(\d+)\.(\d+)/) ?? [];
+  const [, day, month, year] = messageText.match(/(\d+)\.(\d+)\.(\d+)/) ?? [];
   const dateString = `${year}-${month}-${day}`;
   const date = parseISO(dateString);
 
