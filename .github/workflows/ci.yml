@@ -1,4 +1,4 @@
-name: Test
+name: CI
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  test:
-    name: Install dependencies and test
+  lint_and_test:
+    name: Lint & Test
 
     runs-on: ubuntu-latest
 
@@ -19,4 +19,5 @@ jobs:
           node-version: "16.x"
           cache: "npm"
       - run: npm ci
-      - run: npm test
+      - run: npm run lint:ci
+      - run: npm run test

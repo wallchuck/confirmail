@@ -34,7 +34,8 @@
     "deploy": "npm run build && aws lambda update-function-code --function-name confirmail --zip-file fileb://dist/index.zip",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "lint:ci": "eslint src --max-warnings 0"
   },
   "keywords": [],
   "author": "",
