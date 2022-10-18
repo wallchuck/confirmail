@@ -41,7 +41,7 @@ import { ${options.name} } from "./${options.name}";
 describe("${options.name}", () => {
   it("reads transaction details from message text", async () => {
     const messageText = \`
-${text.trim()}\`
+${text.trim()}\`;
 
     const transactionDetails: TransactionDetails = {
       // TODO
@@ -51,22 +51,22 @@ ${text.trim()}\`
     };
 
     expect(${options.name}(messageText)).toStrictEqual(transactionDetails);
-  })
-})
+  });
 
   it("throws if date string cannot be parsed", async () => {
     const messageText = \`
-${text.trim()}\`
+${text.trim()}\`;
 
     expect(() => ${options.name}(messageText)).toThrow();
   });
 
   it("throws if amount string cannot be parsed", async () => {
     const messageText = \`
-${text.trim()}\`
+${text.trim()}\`;
 
     expect(() => ${options.name}(messageText)).toThrow();
   });
+});
 `;
 
   const parserFilesPath = path.join(

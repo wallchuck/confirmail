@@ -28,6 +28,7 @@ const abbreviatedMemos: Record<string, string> = {
   "Salad Story - Al. KEN": "Salad Story",
   "Bao Dao - Wąwozowa": "Bao Dao",
   "Bajgle i Bąble Breakfast & Coffee bar": "Bajgle i Bąble",
+  "KURA Buffalo Wings - Wilanów": "KURA Buffalo Wings",
 };
 
 const getTransaction = (messageText: string): Transaction => {
