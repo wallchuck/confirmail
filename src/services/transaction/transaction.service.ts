@@ -1,4 +1,5 @@
 import { boltFoodParser } from "./parsers/boltFoodParser";
+import { uberEatsParser } from "./parsers/uberEatsParser";
 import { woltParser } from "./parsers/woltParser";
 import {
   isPayee,
@@ -7,21 +8,27 @@ import {
   Transaction,
 } from "./transaction.types";
 
-const getPayee = (messageText: string): Payee => {
-  const [, payee] = messageText.match(/From: (.*) </) ?? [];
+export const getPayee = (messageText: string): Payee => {
+  const [, sender] = messageText.match(/From: (.*) </) ?? [];
+  const [, subject] = messageText.match(/Subject: (.*)/) ?? [];
 
-  if (!isPayee(payee)) {
-    throw new Error(
-      `Error: invalid payee '${payee}' in message text '${messageText}'`
-    );
+  if (isPayee(sender)) {
+    return sender;
   }
 
-  return payee;
+  if (subject?.includes("Uber Eats")) {
+    return "Uber Eats";
+  }
+
+  throw new Error(
+    `Error: invalid payee '${sender}' in message text '${messageText}'`
+  );
 };
 
 const parsersByPayee: Record<Payee, MessageTextParser> = {
   "Bolt Food": boltFoodParser,
   Wolt: woltParser,
+  "Uber Eats": uberEatsParser,
 };
 
 const abbreviatedMemos: Record<string, string> = {
@@ -29,6 +36,7 @@ const abbreviatedMemos: Record<string, string> = {
   "Bao Dao - Wąwozowa": "Bao Dao",
   "Bajgle i Bąble Breakfast & Coffee bar": "Bajgle i Bąble",
   "KURA Buffalo Wings - Wilanów": "KURA Buffalo Wings",
+  "McDonald's® - Ursynów": "McDonald's",
 };
 
 const getTransaction = (messageText: string): Transaction => {
