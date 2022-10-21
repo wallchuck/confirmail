@@ -23,5 +23,10 @@ export const handler = async (event: S3Event) => {
   // eslint-disable-next-line no-console
   console.log(`Saved transaction '${JSON.stringify(transaction)}'`);
 
+  const { bucket, key } = await s3Service.deleteObject(event);
+
+  // eslint-disable-next-line no-console
+  console.log(`Deleted key '${key}' from bucket '${bucket}'`);
+
   return transaction;
 };

@@ -9,7 +9,9 @@ const getMessageText = async (event: S3Event): Promise<string> => {
   const key = event.Records[0]?.s3.object.key.replace(/\+/g, " ");
 
   if (!bucket || !key) {
-    throw new Error(`Error: invalid bucket '${bucket}' and key '${key}' pair`);
+    throw new Error(
+      `Error: invalid bucket '${bucket}' and key '${key}' pair received during reading message text`
+    );
   }
 
   const result = await s3
@@ -33,6 +35,26 @@ const getMessageText = async (event: S3Event): Promise<string> => {
   return text;
 };
 
+const deleteObject = async (
+  event: S3Event
+): Promise<{ bucket: string; key: string }> => {
+  const bucket = event.Records[0]?.s3.bucket.name;
+  const key = event.Records[0]?.s3.object.key.replace(/\+/g, " ");
+
+  if (!bucket || !key) {
+    throw new Error(
+      `Error: invalid bucket '${bucket}' and key '${key}' pair received during deleting`
+    );
+  }
+
+  await s3
+    .deleteObject({ Bucket: bucket, Key: decodeURIComponent(key) })
+    .promise();
+
+  return { bucket, key };
+};
+
 export const s3Service = {
   getMessageText,
+  deleteObject,
 };
