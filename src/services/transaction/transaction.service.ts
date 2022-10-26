@@ -1,6 +1,7 @@
 import { boltFoodParser } from "./parsers/boltFoodParser";
 import { uberEatsParser } from "./parsers/uberEatsParser";
 import { uberParser } from "./parsers/uberParser";
+import { upcParser } from "./parsers/upcParser";
 import { woltParser } from "./parsers/woltParser";
 import {
   isPayee,
@@ -25,6 +26,10 @@ export const getPayee = (messageText: string): Payee => {
     return "Uber";
   }
 
+  if (subject?.includes("UPC")) {
+    return "UPC";
+  }
+
   throw new Error(
     `Error: invalid payee '${sender}' in message text '${messageText}'`
   );
@@ -35,6 +40,7 @@ const parsersByPayee: Record<Payee, MessageTextParser> = {
   Wolt: woltParser,
   "Uber Eats": uberEatsParser,
   Uber: uberParser,
+  UPC: upcParser,
 };
 
 const abbreviatedMemos: Record<string, string> = {
